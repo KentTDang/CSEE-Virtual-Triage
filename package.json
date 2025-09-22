@@ -16,6 +16,8 @@
   ],
   "packageManager": "npm@8.5.0",
   "devDependencies": {
+    "@workspace/eslint-config": "*",
+    "@workspace/typescript-config": "*",
     "turbo": "^2.5.6"
   }
 }
