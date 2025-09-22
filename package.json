@@ -1,0 +1,21 @@
+{
+  "name": "csee-virtual-triage",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "turbo run dev",
+    "check-types": "tsc --noEmit",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "packageManager": "npm@8.5.0",
+  "devDependencies": {
+    "turbo": "^2.5.6"
+  }
+}
