@@ -4,6 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "turbo run dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
     "check-types": "tsc --noEmit",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo lint",
