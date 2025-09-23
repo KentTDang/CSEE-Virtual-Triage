@@ -8,7 +8,6 @@
     "lint": "turbo lint",
     "check-types": "tsc --noEmit",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "lint": "turbo lint",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
