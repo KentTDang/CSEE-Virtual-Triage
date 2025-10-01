@@ -6,6 +6,7 @@
     "start": "turbo run dev",
     "build": "turbo build",
     "lint": "turbo lint",
+    "lint:check": "turbo lint:check",
     "format": "turbo format",
     "format:check": "turbo format:check",
     "check-types": "tsc --noEmit",
