@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { UserAuth } from '../context/AuthContext';
+import { UserAuth } from '../context/AuthContext.jsx';
 
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
@@ -8,10 +8,10 @@ import { Input } from "@workspace/ui/components/input";
 
 
 const Signin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState('');
+  const [email, setEmail] = useState<String>('');
+  const [password, setPassword] = useState<String>('');
+  const [error, setError] = useState<String>('');
+  const [loading, setLoading] = useState<boolean>();
 
   const { session, signInUser } = UserAuth();
   const navigate = useNavigate()

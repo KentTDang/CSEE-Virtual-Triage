@@ -1,5 +1,5 @@
-import React from 'react'
-import { UserAuth } from '../context/AuthContext';
+// import React from 'react'
+import { UserAuth } from '../context/AuthContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -24,7 +24,7 @@ const Dashboard = () => {
       <h2>Welcome, {session?.user?.email}</h2>
       <div>
         <p 
-          onClick={handleSignOut} //36:25
+          onClick={handleSignOut}
           className="hover:cursor-pointer border inline-block px-4 py-3 mt-4"
         >
           Sign Out
