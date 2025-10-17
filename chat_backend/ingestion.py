@@ -4,6 +4,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 from dotenv import load_dotenv
+import re
 
 load_dotenv()
 
@@ -19,6 +20,16 @@ URLS = [
 #https://python.langchain.com/docs/integrations/document_loaders/
 loader = WebBaseLoader(URLS)
 docs = loader.load()
+import re
+
+for doc in docs:
+    text = doc.page_content
+    text = re.sub(r"\s+", " ", text)  # collapse whitespace
+    # remove recurring boilerplate phrases
+    text = re.sub(r"Skip to main content", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"Search Context", "", text, flags=re.IGNORECASE)
+    doc.page_content = text.strip()
+
 print(f"Example document page content:\n{docs[0].page_content[:500]}...\n")
 print(f"Loaded {len(docs)} pages")
 
