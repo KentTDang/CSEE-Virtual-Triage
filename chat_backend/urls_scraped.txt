@@ -1,0 +1,18 @@
+Scrape 0:
+https://www.csee.umbc.edu/overview/
+https://www.csee.umbc.edu/facts-highlights/
+https://www.csee.umbc.edu/jobs/
+https://www.csee.umbc.edu/undergraduate/
+https://www.csee.umbc.edu/undergraduate/computer-science-bs/
+https://www.csee.umbc.edu/undergraduate/computer-science-bs/student-outcomes/
+https://www.csee.umbc.edu/undergraduate/computer-science-bs/awards-and-honors/
+https://www.csee.umbc.edu/undergraduate/computer-science-bs/faq/
+https://www.csee.umbc.edu/computer-science-b-s-tracks/
+https://www.csee.umbc.edu/undergraduate/computer-science-bs/transfer-information/
+https://www.csee.umbc.edu/undergraduate/undergraduate-faq-advising-registration-graduation/
+https://www.csee.umbc.edu/undergraduate/required-technology/
+https://www.csee.umbc.edu/resources/internships/
+https://www.csee.umbc.edu/resources/internships/guidelines-for-cmsc-498-reports/
+https://www.csee.umbc.edu/resources/student-organizations/
+https://www.csee.umbc.edu/undergraduate/computer-engineering-bs/
+https://www.csee.umbc.edu/undergraduate/computer-engineering-bs/student-outcomes/
