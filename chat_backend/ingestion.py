@@ -1,10 +1,7 @@
 import os
-from langchain_community.document_loaders import WebBaseLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 from dotenv import load_dotenv
-import re
 from scrapeNprocess import make_documents
 
 load_dotenv()
@@ -14,7 +11,8 @@ CHROMA_TENANT = os.getenv("CHROMA_TENANT")
 CHROMA_DATABASE = os.getenv("CHROMA_DATABASE", "development")
 
 URLS = [
-    "https://www.csee.umbc.edu/undergraduate/"
+    "https://www.csee.umbc.edu/undergraduate/computer-engineering-bs/",
+    "https://www.csee.umbc.edu/undergraduate/computer-engineering-bs/student-outcomes/"
 ]
 
 docs = make_documents(URLS)
@@ -28,13 +26,13 @@ embeddings = OpenAIEmbeddings(
 )
 print(f"Embeddings: {embeddings}")
 
-# vectorstore = Chroma.from_documents(
-#     documents=docs,
-#     embedding=embeddings,
-#     collection_name="csee-department",
-#     chroma_cloud_api_key=CHROMA_API_KEY,
-#     tenant=CHROMA_TENANT,
-#     database=CHROMA_DATABASE
-# )
+vectorstore = Chroma.from_documents(
+    documents=docs,
+    embedding=embeddings,
+    collection_name="csee-department",
+    chroma_cloud_api_key=CHROMA_API_KEY,
+    tenant=CHROMA_TENANT,
+    database=CHROMA_DATABASE
+)
 
 print("Ingestion complete! Data uploaded to Chroma Cloud.")
