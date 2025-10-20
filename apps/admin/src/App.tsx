@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Button } from "@workspace/ui/components/button";
 import Signup from "./components/Signup"
-
+import { Login1 } from "./views/Login";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <Signup />
+      <Login1 />
     </>
   );
 }

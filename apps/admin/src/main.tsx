@@ -15,5 +15,17 @@ createRoot(document.getElementById("root")!).render(
         <RouterProvider router={router} />
       </AuthContextProvider>
     </>
+
   </StrictMode>
 );
+        
+<!--         
+import App from "./App";
+import Layout from "./layout";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <Layout>
+      <App />
+    </Layout>
+ -->
