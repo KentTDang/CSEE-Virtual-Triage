@@ -24,12 +24,12 @@ import { Response } from "../../../packages/ui/src/components/ui/shadcn-io/ai/re
 
 export default function App() {
   const [input, setInput] = useState("");
-  const { messages, append, status } = useChat();
+  const { messages, sendMessage, status } = useChat();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim()) {
-      append({ role: "user", content: input });
+      sendMessage({ text: input });
       setInput("");
     }
   };
@@ -46,7 +46,19 @@ export default function App() {
             messages.map((message) => (
               <Message from={message.role} key={message.id}>
                 <MessageContent>
-                  <Response>{message.content}</Response>
+                  {/* Each message now contains a parts[] array in v5 */}
+                  {message.parts && Array.isArray(message.parts) ? (
+                    message.parts.map((part, idx) => {
+                      if (part.type === "text") {
+                        return <Response key={idx}>{part.text}</Response>;
+                      }
+
+                      return null;
+                    })
+                  ) : (
+                    // Fallback for legacy data shape
+                    <Response>{(message as any).content ?? ""}</Response>
+                  )}
                 </MessageContent>
               </Message>
             ))
