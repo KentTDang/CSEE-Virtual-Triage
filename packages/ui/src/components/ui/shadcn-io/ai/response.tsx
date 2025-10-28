@@ -9,7 +9,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import { CodeBlock, CodeBlockCopyButton } from "../ai/code-block.js";
 import "katex/dist/katex.min.css";
-import hardenReactMarkdown from "harden-react-markdown";
+//import hardenReactMarkdown from "harden-react-markdown";
 
 /**
  * Parses markdown text and removes incomplete tokens to prevent partial rendering
@@ -156,20 +156,15 @@ function parseIncompleteMarkdown(text: string): string {
 }
 
 // Create a hardened version of ReactMarkdown
-const HardenedMarkdown = hardenReactMarkdown(ReactMarkdown);
+// Removed: import hardenReactMarkdown from "harden-react-markdown";
+const HardenedMarkdown = (props: any) => <ReactMarkdown {...props} />;
 
 export type ResponseProps = HTMLAttributes<HTMLDivElement> & {
   options?: Options;
   children: Options["children"];
-  allowedImagePrefixes?: ComponentProps<
-    ReturnType<typeof hardenReactMarkdown>
-  >["allowedImagePrefixes"];
-  allowedLinkPrefixes?: ComponentProps<
-    ReturnType<typeof hardenReactMarkdown>
-  >["allowedLinkPrefixes"];
-  defaultOrigin?: ComponentProps<
-    ReturnType<typeof hardenReactMarkdown>
-  >["defaultOrigin"];
+  allowedImagePrefixes?: string[];
+  allowedLinkPrefixes?: string[];
+  defaultOrigin?: string;
   parseIncompleteMarkdown?: boolean;
 };
 

@@ -35,21 +35,30 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <Conversation>
+    <div className="flex flex-col h-screen max-w-3xl mx-auto p-4">
+      <Conversation className="relative flex-1 w-full border rounded-lg p-4 overflow-hidden">
         <ConversationContent>
-          {messages.map((message) => (
-            <Message from={message.role} key={message.id}>
-              <MessageContent>
-                <Response>{message.content}</Response>
-              </MessageContent>
+          {messages.length === 0 ? (
+            <Message from="system">
+              <MessageContent>Start the conversation below 👇</MessageContent>
             </Message>
-          ))}
+          ) : (
+            messages.map((message) => (
+              <Message from={message.role} key={message.id}>
+                <MessageContent>
+                  <Response>{message.content}</Response>
+                </MessageContent>
+              </Message>
+            ))
+          )}
         </ConversationContent>
         <ConversationScrollButton />
       </Conversation>
 
-      <PromptInput onSubmit={handleSubmit} className="mt-4">
+      <PromptInput
+        onSubmit={handleSubmit}
+        className="mt-4 border-t pt-4 flex flex-col gap-2"
+      >
         <PromptInputTextarea
           value={input}
           placeholder="Say something..."
