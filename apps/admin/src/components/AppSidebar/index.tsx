@@ -50,7 +50,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>
             <img src={shiledLightBg} alt="UMBC Shield" className="w-6 h-6 object-contain"/>
-            CSEE Virtual Triage
+            <span className="truncate font-bold text-lg p-2">CSEE Virtual Triage</span>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
