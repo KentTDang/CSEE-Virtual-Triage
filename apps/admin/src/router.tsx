@@ -6,14 +6,14 @@ import FAQboard from "./views/FAQ/index.js";
 import { Root } from "./views/Root/index.js";
 
 export const router = createBrowserRouter([
-    { path: "/", element: <Signin />},
-    { path: "/signup", element: <Signup />},
-    { path: "/signin", element: <Signin />},
-    {
-        element: <Root />,
-        children: [
-            {path: "/faq", element: <FAQboard />},
-            {path: "/dashboard", element: <Dashboard />},
-        ]
-    },
+  { path: "/", element: <Signin /> },
+  { path: "/signup", element: <Signup /> },
+  { path: "/signin", element: <Signin /> },
+  {
+    element: <Root />,
+    children: [
+      { path: "/faq", element: <FAQboard /> },
+      { path: "/dashboard", element: <Dashboard /> },
+    ],
+  },
 ]);

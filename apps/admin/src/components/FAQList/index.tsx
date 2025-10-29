@@ -1,16 +1,19 @@
 import FAQItem from "../FAQItem/index";
 
 interface FAQ {
-    id: string,
-    question: string,
-    answer: string,
-    create_at: string,
-    updated_by?: string
+  id: string;
+  question: string;
+  answer: string;
+  create_at: string;
+  updated_by?: string;
 }
 
 interface Props {
   faqs: FAQ[];
-  onEdit: (id: string, values: Pick<FAQ, "question" | "answer">) => Promise<void> | void;
+  onEdit: (
+    id: string,
+    values: Pick<FAQ, "question" | "answer">,
+  ) => Promise<void> | void;
   onDelete: (id: string) => Promise<void> | void;
 }
 
