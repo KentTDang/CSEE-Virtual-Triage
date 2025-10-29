@@ -25,7 +25,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
-import shiledLightBg from "../../../assets/shield-light-bg.png";
+import shieldLightBg from "../../../assets/shield-light-bg.png";
 
 // Menu items.
 const items = [
@@ -63,7 +63,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>
             <img
-              src={shiledLightBg}
+              src={shieldLightBg}
               alt="UMBC Shield"
               className="w-6 h-6 object-contain"
             />

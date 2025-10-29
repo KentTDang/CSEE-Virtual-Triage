@@ -2,6 +2,8 @@ import { Separator } from "@workspace/ui/components/separator";
 import { SidebarTrigger } from "@workspace/ui/components/sidebar";
 import { cn } from "@workspace/ui/lib/utils";
 import { useEffect, useState } from "react";
+import umbcLogo from "../../../assets/umbc-logo.png";
+
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {
   fixed?: boolean;
@@ -41,7 +43,14 @@ export const Header = ({
       <div className="relative flex h-full items-center gap-3 p-4 sm:gap-4">
         <SidebarTrigger variant="outline" className="max-md:scale-125" />
         <Separator orientation="vertical" className="h-6" />
-        <h1>UMBC CSEE Virtual Triage</h1>
+        <div className="flex items-center">
+
+        <img
+              src={umbcLogo}
+              alt="UMBC Shield"
+              className="h-6"
+            />
+        </div>
       </div>
     </header>
   );

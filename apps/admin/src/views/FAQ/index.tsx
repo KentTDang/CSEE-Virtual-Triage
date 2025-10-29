@@ -14,7 +14,7 @@ const FAQboard = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-muted-foreground">
-            Manage FAQs and their answers here.
+            Manage all FAQs displayed on the CSEE Virtual Triage page.
           </p>
         </div>
         <FAQDialog
