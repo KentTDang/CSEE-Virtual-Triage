@@ -108,8 +108,8 @@ def ask_question(query: str, k: int = 4) -> Dict[str, object]:
         }
         for doc in results
     ]
-
-    return {"answer": answer, "sources": sources}
+    print(f"Returning: \nQuestion: {query}\nAnswer: {answer}\nSources: {sources}")
+    return answer, sources
 
 # CLI test
 if __name__ == "__main__":
