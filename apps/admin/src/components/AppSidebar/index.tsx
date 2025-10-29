@@ -6,6 +6,7 @@ import {
   Search,
   Settings,
   User2,
+  LogOut
 } from "lucide-react";
 
 import {
@@ -25,7 +26,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
-import shiledLightBg from "../../../assets/shield-light-bg.png";
+import shieldLightBg from "../../../assets/shield-light-bg.png";
+import { UserAuth } from "../../context/AuthContext"
 
 // Menu items.
 const items = [
@@ -57,13 +59,16 @@ const items = [
 ];
 
 export function AppSidebar() {
+
+  const { session, signOut } = UserAuth();
+  
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>
             <img
-              src={shiledLightBg}
+              src={shieldLightBg}
               alt="UMBC Shield"
               className="w-6 h-6 object-contain"
             />
@@ -93,7 +98,7 @@ export function AppSidebar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SidebarMenuButton>
-                  <User2 /> Username
+                  <User2 /> {session?.user?.email}
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
@@ -101,14 +106,8 @@ export function AppSidebar() {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <DropdownMenuItem>
-                  <span>Account</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Billing</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <span>Sign out</span>
+                <DropdownMenuItem variant="destructive">
+                  <button className="flex justify-center items-center gap-2" onClick={signOut}><LogOut size={6} className="text-red-600"/>Sign out</button>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

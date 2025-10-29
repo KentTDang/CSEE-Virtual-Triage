@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@workspace/ui/components/button";
-
+import { Trash2, SquarePen } from "lucide-react";
 interface FAQ {
   id: string;
   question: string;
@@ -62,7 +62,7 @@ export default function FAQItem({ faq, onEdit, onDelete }: Props) {
             onChange={(e) => setValues({ ...values, answer: e.target.value })}
             className="w-full border p-2 rounded h-24 mb-2"
           />
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-end">
             <Button onClick={handleSave} disabled={saving}>
               {saving ? "Saving..." : "Save"}
             </Button>
@@ -72,20 +72,22 @@ export default function FAQItem({ faq, onEdit, onDelete }: Props) {
           </div>
         </>
       ) : (
-        <>
-          <h4 className="font-semibold text-lg">{faq.question}</h4>
-          <p className="text-gray-700 mt-1 whitespace-pre-wrap">{faq.answer}</p>
-          <div className="flex gap-2 mt-2">
-            <Button onClick={() => setIsEditing(true)}>Edit</Button>
+        <div className="">
+          <div className="flex justify-between items-center p-2">
+            <h4 className="font-semibold text-lg">{faq.question}</h4>
+            <div className="flex gap-1">
+            <Button onClick={() => setIsEditing(true)}><SquarePen size={16} /></Button>
             <Button
               variant="destructive"
               onClick={handleDelete}
               disabled={removing}
             >
-              {removing ? "Deleting..." : "Delete"}
+              <Trash2 size={16} />
             </Button>
+            </div>
           </div>
-        </>
+          <p className="text-gray-700 whitespace-pre-wrap p-2">{faq.answer}</p>
+          </div>
       )}
     </div>
   );

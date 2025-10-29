@@ -1,5 +1,5 @@
 import { Main } from "../../components/Main/index";
-import { FAQAddButton } from "../../components/FAQAddButton";
+import { FAQDialog } from "../../components/FAQDialog";
 import { useFaqs } from "../../hooks/use-faqs";
 import FAQList from "../../components/FAQList/index";
 
@@ -14,10 +14,10 @@ const FAQboard = () => {
             Frequently Asked Questions
           </h2>
           <p className="text-muted-foreground">
-            Manage FAQs and their answers here.
+            Manage all FAQs displayed on the CSEE Virtual Triage page.
           </p>
         </div>
-        <FAQAddButton
+        <FAQDialog
           onSubmit={(q, a) => addFaq(q, a)}
           submitting={submitting}
         />

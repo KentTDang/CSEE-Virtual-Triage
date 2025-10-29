@@ -1,8 +1,7 @@
-import { MailPlus, UserPlus } from "lucide-react";
+import { MessageCirclePlus } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -10,14 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@workspace/ui/components/dialog";
-import { Input } from "@workspace/ui/components/input";
 import { useState } from "react";
 interface Props {
   onSubmit: (q: string, a: string) => Promise<void> | void;
   submitting?: boolean;
 }
 
-export function FAQAddButton({ onSubmit, submitting }: Props) {
+export function FAQDialog({ onSubmit, submitting }: Props) {
   const [question, setQuestion] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
 
@@ -33,41 +31,36 @@ export function FAQAddButton({ onSubmit, submitting }: Props) {
       <Dialog>
         <DialogTrigger asChild>
           <Button className="space-x-1">
-            <span>Add FAQ</span> <UserPlus size={18} />
+            <span>Add FAQ</span> <MessageCirclePlus size={18} />
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Share link</DialogTitle>
+            <DialogTitle>Add a FAQ</DialogTitle>
             <DialogDescription>
-              Anyone who has this link will be able to view this.
+              All FAQs are visible to everyone on the CSEE Virtual Triage page.
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="mb-8 space-y-3">
             <input
               type="text"
-              placeholder="Question"
+              placeholder="Enter a question"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               className="w-full border p-2 rounded"
             />
             <textarea
-              placeholder="Answer"
+              placeholder="Enter an answer"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               className="w-full border p-2 rounded h-24"
             />
-            <Button type="submit" disabled={!!submitting}>
-              {submitting ? "Adding..." : "Add FAQ"}
-            </Button>
+            <DialogFooter>
+                <Button type="submit"  disabled={submitting || !question.trim() || !answer.trim()}>
+                    {submitting ? "Adding..." : "Add"}
+                </Button>
+            </DialogFooter>
           </form>
-          <DialogFooter className="sm:justify-start">
-            <DialogClose asChild>
-              <Button type="button" variant="secondary">
-                Close
-              </Button>
-            </DialogClose>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

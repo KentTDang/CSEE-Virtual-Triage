@@ -4,6 +4,8 @@ import { UserAuth } from "../context/AuthContext.jsx";
 
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
+import umbcLogo from "../../assets/umbc-light-logo.png"
+
 
 const Signin = () => {
   const [email, setEmail] = useState<String>("");
@@ -22,7 +24,7 @@ const Signin = () => {
       const result = await signInUser(email, password);
 
       if (result.success) {
-        navigate("/dashboard");
+        navigate("/faq");
       }
     } catch (err) {
       setError("an error occurred");
@@ -35,16 +37,11 @@ const Signin = () => {
     <section className="bg-muted h-screen">
       <div className="flex h-full items-center justify-center">
         <div className="flex flex-col items-center gap-6 lg:justify-start">
-          {/* Logo */}
-          <a href="https://www.shadcnblocks.com">
-            <img
-              src="https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-wordmark.svg"
-              alt="logo"
-              title="shadcnblocks.com"
-              className="h-10 dark:invert"
-            />
-          </a>
-
+          <img
+              src={umbcLogo}
+              alt="UMBC Logo"
+              className="h-10"
+          />
           <form
             onSubmit={handleSignIn}
             className="min-w-sm border-muted bg-background flex w-full max-w-sm flex-col items-center gap-y-4 rounded-md border px-6 py-8 shadow-md"
