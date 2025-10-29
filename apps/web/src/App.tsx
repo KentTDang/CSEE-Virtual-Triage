@@ -1,41 +1,77 @@
 "use client";
 
 import { useState } from "react";
-import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
 
 import {
   Conversation,
   ConversationContent,
   ConversationScrollButton,
 } from "../../../packages/ui/src/components/ui/shadcn-io/ai/conversation";
-
 import {
   Message,
   MessageContent,
 } from "../../../packages/ui/src/components/ui/shadcn-io/ai/message";
-
 import {
   PromptInput,
   PromptInputTextarea,
   PromptInputSubmit,
 } from "../../../packages/ui/src/components/ui/shadcn-io/ai/prompt-input";
-
 import { Response } from "../../../packages/ui/src/components/ui/shadcn-io/ai/response";
+
+type ChatMessage = {
+  id: string;
+  role: "user" | "assistant" | "system";
+  parts: { type: "text"; text: string }[];
+};
 
 export default function App() {
   const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [status, setStatus] = useState<"idle" | "submitting">("idle");
 
-  const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({
-      api: "http://localhost:8000/chat",
-    }),
-  });
+  // ✅ Corrected base (no trailing /chat)
+  const API_BASE = "http://localhost:8000";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (input.trim()) {
-      sendMessage({ text: input });
+    if (!input.trim()) return;
+
+    const userMsg: ChatMessage = {
+      id: crypto.randomUUID(),
+      role: "user",
+      parts: [{ type: "text", text: input }],
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
+    setStatus("submitting");
+
+    try {
+      const res = await fetch(`${API_BASE}/ask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: input, top_k: 4 }),
+      });
+
+      if (!res.ok) throw new Error(`Server error ${res.status}`);
+      const data = await res.json();
+
+      const assistantMsg: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        parts: [{ type: "text", text: data.answer || "No answer returned." }],
+      };
+
+      setMessages((prev) => [...prev, assistantMsg]);
+    } catch (err) {
+      console.error(err);
+      const errMsg: ChatMessage = {
+        id: crypto.randomUUID(),
+        role: "assistant",
+        parts: [{ type: "text", text: "⚠️ Error fetching response." }],
+      };
+      setMessages((prev) => [...prev, errMsg]);
+    } finally {
+      setStatus("idle");
       setInput("");
     }
   };
@@ -52,18 +88,10 @@ export default function App() {
             messages.map((message) => (
               <Message from={message.role} key={message.id}>
                 <MessageContent>
-                  {/* Each message now contains a parts[] array in v5 */}
-                  {message.parts && Array.isArray(message.parts) ? (
-                    message.parts.map((part, idx) => {
-                      if (part.type === "text") {
-                        return <Response key={idx}>{part.text}</Response>;
-                      }
-
-                      return null;
-                    })
-                  ) : (
-                    // Fallback for legacy data shape
-                    <Response>{(message as any).content ?? ""}</Response>
+                  {message.parts?.map((part, idx) =>
+                    part.type === "text" ? (
+                      <Response key={idx}>{part.text}</Response>
+                    ) : null
                   )}
                 </MessageContent>
               </Message>
@@ -79,10 +107,13 @@ export default function App() {
       >
         <PromptInputTextarea
           value={input}
-          placeholder="Say something..."
+          placeholder="Ask your question..."
           onChange={(e) => setInput(e.currentTarget.value)}
         />
-        <PromptInputSubmit status={status} disabled={!input.trim()} />
+        <PromptInputSubmit
+          status={(status === "idle" ? "ready" : "in_progress") as any}
+          disabled={!input.trim()}
+        />
       </PromptInput>
     </div>
   );
