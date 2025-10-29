@@ -25,9 +25,10 @@ import { Response } from "../../../packages/ui/src/components/ui/shadcn-io/ai/re
 
 export default function App() {
   const [input, setInput] = useState("");
+
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
-      api: "/api/chat",
+      api: "http://localhost:8000/chat",
     }),
   });
 
