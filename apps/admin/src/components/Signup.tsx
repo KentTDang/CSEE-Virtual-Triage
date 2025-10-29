@@ -5,7 +5,7 @@ import { UserAuth } from "../context/AuthContext.jsx";
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
 
-import umbcLogo from "../../assets/umbc-logo.png"
+import umbcLogo from "../../assets/umbc-light-logo.png"
 
 const Signup = () => {
   const [email, setEmail] = useState<String>("");

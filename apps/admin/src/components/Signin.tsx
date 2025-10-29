@@ -4,7 +4,7 @@ import { UserAuth } from "../context/AuthContext.jsx";
 
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
-import umbcLogo from "../../assets/umbc-logo.png"
+import umbcLogo from "../../assets/umbc-light-logo.png"
 
 
 const Signin = () => {
@@ -24,7 +24,7 @@ const Signin = () => {
       const result = await signInUser(email, password);
 
       if (result.success) {
-        navigate("/dashboard");
+        navigate("/faq");
       }
     } catch (err) {
       setError("an error occurred");
