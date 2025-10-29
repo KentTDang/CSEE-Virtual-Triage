@@ -1,4 +1,4 @@
-import { supabase } from '../supabaseClient';
+import {supabase } from "../../supabaseClient";
 import { useState, useEffect } from 'react';
 import { Button } from '@workspace/ui/components/button';
 
