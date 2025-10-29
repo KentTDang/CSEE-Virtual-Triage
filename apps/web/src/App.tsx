@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport } from "ai";
 
 import {
   Conversation,
@@ -24,7 +25,11 @@ import { Response } from "../../../packages/ui/src/components/ui/shadcn-io/ai/re
 
 export default function App() {
   const [input, setInput] = useState("");
-  const { messages, sendMessage, status } = useChat();
+  const { messages, sendMessage, status } = useChat({
+    transport: new DefaultChatTransport({
+      api: "/api/chat",
+    }),
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
