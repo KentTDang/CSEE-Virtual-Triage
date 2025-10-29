@@ -1,6 +1,3 @@
-// import React from 'react'
-// import { UserAuth } from '../context/AuthContext.jsx';
-// import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import { useState, useEffect } from 'react';
 import { Button } from '@workspace/ui/components/button';
@@ -11,13 +8,8 @@ const FAQboard = () => {
   const [ question, setQuestion ] = useState('');
   const [ answer, setAnswer ] = useState('');
   const [ adding, setAdding ] = useState(false);
-  const [ FAQ2,setFAQ2 ] = useState({
-    question:'', answer:''
-  })
-
   const [editingId, setEditingId] = useState(null);
   const [editValues, setEditValues] =  useState({ question:'', answer:'' })
-  
 
   // fetching FAQs
   async function getFaqs() {
@@ -87,7 +79,7 @@ const FAQboard = () => {
       setAdding(false);
       return;
     }
-    
+
     const { error } = await supabase.from('faqs').update({ question: editValues.question, answer: editValues.answer, updated_by: user.id})
       .eq('id', faqId)
       .select();
@@ -108,114 +100,9 @@ const FAQboard = () => {
     }
   }
 
-  // Edit an FAQ
-  // async function editFAQ(faqId){
-  //   const { data, error } = await supabase
-  //     .from('faqs')
-  //     .update()
-  //     .eq('id', faqId)
-
-  //   getFaqs()
-
-  //   if (error){
-  //     console.log(error)
-  //   }
-
-  // }
-
-
-  // function displayFAQ(faqId){
-
-  //   faqs.map((faq)=>{
-
-  //     if(faq.id == faqId){
-  //       setFAQ2({question:faq.question, answer:faq.answer})    
-  //     }
-
-
-
-
-  //   })
-  // }
-
   useEffect(() => {
     getFaqs();
   }, []);
-
-//   return (
-//     <div>
-//       <div className="mt-10">
-//         <h3 className="text-2xl font-semibold mb-4">FAQ Management Panel</h3>
-//         {/* --- Add FAQ Form --- */}
-//         <form onSubmit={addFAQ} className="mb-8 space-y-3">
-//             <input
-//             type="text"
-//             placeholder="Question"
-//             value={question}
-//             onChange={(e) => setQuestion(e.target.value)}
-//             className="w-full border p-2 rounded"
-//             />
-//             <textarea
-//             placeholder="Answer"
-//             value={answer}
-//             onChange={(e) => setAnswer(e.target.value)}
-//             className="w-full border p-2 rounded h-24"
-//             />
-//             <Button type="submit" disabled = {adding} onClick={addFAQ}>
-//                 {adding ? 'Adding...' : 'Add FAQ'}
-//             </Button>
-            
-//         </form>
-
-//         {/* --- Edit FAQ Form --- */}
-//         <form onSubmit={addFAQ} className="mb-8 space-y-3">
-//             <input
-//             type="text"
-//             defaultValue={FAQ2.question}
-//             value={question}
-//             onChange={(e) => setQuestion(e.target.value)}
-//             className="w-full border p-2 rounded"
-//             />
-//             <textarea
-//             defaultValue={FAQ2.answer} 
-//             value={answer}
-//             onChange={(e) => setAnswer(e.target.value)}
-//             className="w-full border p-2 rounded h-24"
-//             />
-//             <Button type="submit" disabled = {adding} onClick={addFAQ}>
-//                 {adding ? 'Editing...' : 'Edit FAQ'}
-//             </Button>
-            
-//         </form>
-        
-//         {loading ? (
-//           <p>Loading FAQs...</p>
-//         ) : faqs.length === 0 ? (
-//           <p>No FAQs found.</p>
-//         ) : (
-//           <div className="space-y-4">
-//             {faqs.map((faq) => (
-//               <div>
-//                 <div
-//                   key={faq.id}
-//                   className="border rounded-lg p-4 bg-gray-50 shadow-sm"
-//                 >
-//                   <h4 className="font-semibold text-lg">{faq.question}</h4>
-//                   <p className="text-gray-700 mt-1">{faq.answer}</p>
-//                 </div>
-//                 {/* <Button onClick={()=>{displayFAQ(faq.id)}}>Edit</Button> */}
-//                 <Button onClick={()=>{deleteFAQ(faq.id)}}>Delete</Button>
-//               </div>
-//             ))}
-//           </div>
-//         )}
-//       </div>
-      
-//     </div>
-//   )
-// }
-
-// export default FAQboard
 
   return (
       <div>
