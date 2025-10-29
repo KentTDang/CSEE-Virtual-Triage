@@ -2,22 +2,28 @@ import { useState } from "react";
 import { Button } from "@workspace/ui/components/button";
 
 interface FAQ {
-    id: string,
-    question: string,
-    answer: string,
-    create_at: string,
-    updated_by?: string
+  id: string;
+  question: string;
+  answer: string;
+  create_at: string;
+  updated_by?: string;
 }
 
 interface Props {
   faq: FAQ;
-  onEdit: (id: string, values: Pick<FAQ, "question" | "answer">) => Promise<void> | void;
+  onEdit: (
+    id: string,
+    values: Pick<FAQ, "question" | "answer">,
+  ) => Promise<void> | void;
   onDelete: (id: string) => Promise<void> | void;
 }
 
 export default function FAQItem({ faq, onEdit, onDelete }: Props) {
   const [isEditing, setIsEditing] = useState(false);
-  const [values, setValues] = useState({ question: faq.question, answer: faq.answer });
+  const [values, setValues] = useState({
+    question: faq.question,
+    answer: faq.answer,
+  });
   const [saving, setSaving] = useState(false);
   const [removing, setRemoving] = useState(false);
 
@@ -71,7 +77,11 @@ export default function FAQItem({ faq, onEdit, onDelete }: Props) {
           <p className="text-gray-700 mt-1 whitespace-pre-wrap">{faq.answer}</p>
           <div className="flex gap-2 mt-2">
             <Button onClick={() => setIsEditing(true)}>Edit</Button>
-            <Button variant="destructive" onClick={handleDelete} disabled={removing}>
+            <Button
+              variant="destructive"
+              onClick={handleDelete}
+              disabled={removing}
+            >
               {removing ? "Deleting..." : "Delete"}
             </Button>
           </div>

@@ -7,9 +7,6 @@
     },
     "jsx": "react-jsx"
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx", "src/supabaseClient.tsx",
-  ],
+  "include": ["**/*.ts", "**/*.tsx", "src/supabaseClient.tsx"],
   "exclude": ["node_modules"]
 }

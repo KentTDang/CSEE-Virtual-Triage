@@ -1,19 +1,18 @@
 // import React from 'react'
 // import { UserAuth } from '../context/AuthContext.jsx';
 // import { useNavigate } from 'react-router-dom';
-import { supabase } from '../supabaseClient';
-import { useState, useEffect } from 'react';
-import { Button } from '@workspace/ui/components/button';
+import { supabase } from "../supabaseClient";
+import { useState, useEffect } from "react";
+import { Button } from "@workspace/ui/components/button";
 
 const FAQboard = () => {
-
-  const [ faqs, setFaqs ] = useState([]);
-  const [ loading, setLoading ] = useState(true);
+  const [faqs, setFaqs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // adding FAQ states
-  const [ question, setQuestion ] = useState('');
-  const [ answer, setAnswer ] = useState('');
-  const [adding, setAdding ] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [adding, setAdding] = useState(false);
   // 10/27 post class revert
   const [editing, setEditing] = useState(false);
   const [removing, setRemoving] = useState(false);
@@ -21,8 +20,8 @@ const FAQboard = () => {
   // fetching FAQs
   async function getFaqs() {
     const { data, error } = await supabase
-      .from('faqs')
-      .select('id, question, answer, created_at');
+      .from("faqs")
+      .select("id, question, answer, created_at");
 
     if (error) {
       console.error(error);
@@ -38,42 +37,42 @@ const FAQboard = () => {
     setAdding(true);
 
     if (!question.trim() || !answer.trim()) {
-        alert('Please fill out both fields. ');
-        setAdding(false);
-        return;
+      alert("Please fill out both fields. ");
+      setAdding(false);
+      return;
     }
 
     const { data, error } = await supabase
-        .from('faqs')
-        .insert([{question, answer}])
-        .select(); // why do i need this line
-    
+      .from("faqs")
+      .insert([{ question, answer }])
+      .select(); // why do i need this line
+
     if (error) {
-        console.error(error);
-        alert('Problem adding FAQ')
+      console.error(error);
+      alert("Problem adding FAQ");
     } else {
-        // Add new FAQ to the top of the list without refetching
-        setFaqs([data[0], ...faqs]);
-        setQuestion('');
-        setAnswer('');
+      // Add new FAQ to the top of the list without refetching
+      setFaqs([data[0], ...faqs]);
+      setQuestion("");
+      setAnswer("");
     }
-    setAdding(false)
+    setAdding(false);
   }
   // delete an FAQ
-  async function delFAQ(faqId){
+  async function delFAQ(faqId) {
     const { data, error } = await supabase
-      .from('faqs')
+      .from("faqs")
       .delete()
-      .eq('id', faqId)
+      .eq("id", faqId);
 
-    getFaqs()
+    getFaqs();
 
-    if (error){
-      console.log(error)
+    if (error) {
+      console.log(error);
     }
-    
-    if (data){
-      console.log(data)
+
+    if (data) {
+      console.log(data);
     } // why?
   }
   // // edit FAQ
@@ -98,64 +97,63 @@ const FAQboard = () => {
     getFaqs();
   }, []);
 
+  // 10/27 post class revert
+  //   return (
+  //     <div>
+  //       <div className="mt-10">
+  //         <h3 className="text-2xl font-semibold mb-4">FAQ Management Panel</h3>
+  //         {/* --- Add FAQ Form --- */}
+  //         <form onSubmit={addFAQ} className="mb-8 space-y-3">
+  //             <input
+  //             type="text"
+  //             placeholder="Question"
+  //             value={question}
+  //             onChange={(e) => setQuestion(e.target.value)}
+  //             className="w-full border p-2 rounded"
+  //             />
+  //             <textarea
+  //             placeholder="Answer"
+  //             value={answer}
+  //             onChange={(e) => setAnswer(e.target.value)}
+  //             className="w-full border p-2 rounded h-24"
+  //             />
+  //             <Button type="submit" disabled = {adding} onClick={addFAQ}>
+  //                 {adding ? 'Adding...' : 'Add FAQ'}
+  //             </Button>
 
-// 10/27 post class revert
-//   return (
-//     <div>
-//       <div className="mt-10">
-//         <h3 className="text-2xl font-semibold mb-4">FAQ Management Panel</h3>
-//         {/* --- Add FAQ Form --- */}
-//         <form onSubmit={addFAQ} className="mb-8 space-y-3">
-//             <input
-//             type="text"
-//             placeholder="Question"
-//             value={question}
-//             onChange={(e) => setQuestion(e.target.value)}
-//             className="w-full border p-2 rounded"
-//             />
-//             <textarea
-//             placeholder="Answer"
-//             value={answer}
-//             onChange={(e) => setAnswer(e.target.value)}
-//             className="w-full border p-2 rounded h-24"
-//             />
-//             <Button type="submit" disabled = {adding} onClick={addFAQ}>
-//                 {adding ? 'Adding...' : 'Add FAQ'}
-//             </Button>
-            
-//         </form>
-        
-//         {loading ? (
-//           <p>Loading FAQs...</p>
-//         ) : faqs.length === 0 ? (
-//           <p>No FAQs found.</p>
-//         ) : (
-//           <div className="space-y-4">
-//             {faqs.map((faq) => (
-//               <div>
-//                 <div
-//                   key={faq.id}
-//                   className="border rounded-lg p-4 bg-gray-50 shadow-sm"
-//                 >
-//                   <h4 className="font-semibold text-lg">{faq.question}</h4>
-//                   <p className="text-gray-700 mt-1">{faq.answer}</p>
-//                 </div>
-//                 {/* <Button onClick={()=>{editFAQ()}}>Edit</Button> */}
-//                 <Button onClick={()=>{deleteFAQ(faq.id)}}>Delete</Button>
-//               </div>
-//             ))}
-//           </div>
-//         )}
-//       </div>
-      
-//     </div>
-//   )
-// }
+  //         </form>
 
-// export default FAQboard
+  //         {loading ? (
+  //           <p>Loading FAQs...</p>
+  //         ) : faqs.length === 0 ? (
+  //           <p>No FAQs found.</p>
+  //         ) : (
+  //           <div className="space-y-4">
+  //             {faqs.map((faq) => (
+  //               <div>
+  //                 <div
+  //                   key={faq.id}
+  //                   className="border rounded-lg p-4 bg-gray-50 shadow-sm"
+  //                 >
+  //                   <h4 className="font-semibold text-lg">{faq.question}</h4>
+  //                   <p className="text-gray-700 mt-1">{faq.answer}</p>
+  //                 </div>
+  //                 {/* <Button onClick={()=>{editFAQ()}}>Edit</Button> */}
+  //                 <Button onClick={()=>{deleteFAQ(faq.id)}}>Delete</Button>
+  //               </div>
+  //             ))}
+  //           </div>
+  //         )}
+  //       </div>
 
-// post class remove
-return (
+  //     </div>
+  //   )
+  // }
+
+  // export default FAQboard
+
+  // post class remove
+  return (
     <div className="mt-10 max-w-4xl mx-auto">
       {/* Header */}
       <div className="text-center mb-10">
@@ -227,7 +225,6 @@ return (
         </form>
       </div>
 
-
       {/* <h2 className='font-semibold text-2xl'>Frequently Asked Questions</h2> */}
 
       {/* FAQs Section */}
@@ -236,7 +233,7 @@ return (
       ) : faqs.length === 0 ? (
         <p className="text-center text-gray-500">No FAQs found.</p>
       ) : (
-        <div>        
+        <div>
           <p>Expand All/Collapse All</p>
           <p>Search</p>
           <p>Save Changes</p>
@@ -271,7 +268,9 @@ return (
                       variant="destructive"
                       size="sm"
                       disabled={removing}
-                      onClick={()=>{delFAQ(faq.id)}}
+                      onClick={() => {
+                        delFAQ(faq.id);
+                      }}
                     >
                       {removing ? "Deleting..." : "Delete"}
                     </Button>
