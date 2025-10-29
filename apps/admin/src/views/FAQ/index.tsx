@@ -1,17 +1,18 @@
 import {supabase } from "../../supabaseClient";
 import { useState, useEffect } from 'react';
 import { Button } from '@workspace/ui/components/button';
+import { Main } from "../../components/Main/index";
+import { FAQAddButton } from "../../components/FAQAddButton";
 
 const FAQboard = () => {
-  const [ faqs, setFaqs ] = useState([]);
-  const [ loading, setLoading ] = useState(true);
-  const [ question, setQuestion ] = useState('');
-  const [ answer, setAnswer ] = useState('');
-  const [ adding, setAdding ] = useState(false);
+  const [ faqs, setFaqs ] = useState<any[]>([]);
+  const [ loading, setLoading ] = useState<boolean>(true);
+  const [ question, setQuestion ] = useState<string>("");
+  const [ answer, setAnswer ] = useState<string>("");
+  const [ adding, setAdding ] = useState<boolean>(false);
   const [editingId, setEditingId] = useState(null);
-  const [editValues, setEditValues] =  useState({ question:'', answer:'' })
+  const [editValues, setEditValues] =  useState<{question:string, answer:string}>({ question:'', answer:'' })
 
-  // fetching FAQs
   async function getFaqs() {
     const { data, error } = await supabase.from('faqs').select('id, question, answer, created_at');
 
@@ -23,10 +24,9 @@ const FAQboard = () => {
     setLoading(false);
   }
 
-  // Add an FAQ
   async function addFAQ(e) {
 
-    e.preventDefault(); // stops the page from reloading
+    e.preventDefault();
     setAdding(true);
 
     const { data: { user } } = await supabase.auth.getUser();
@@ -35,8 +35,6 @@ const FAQboard = () => {
       setAdding(false);
       return;
     }
-
-
 
     if (!question.trim() || !answer.trim()) {
       alert('Please fill out both fields. ');
@@ -61,11 +59,10 @@ const FAQboard = () => {
     setAdding(false)
   }
 
-  // Delete an FAQ
   async function deleteFAQ(faqId){
     const { data, error } = await supabase.from('faqs').delete().eq('id', faqId)
 
-    getFaqs() // reload Faqs
+    getFaqs()
 
     if (error){
       console.log(error)
@@ -96,7 +93,7 @@ const FAQboard = () => {
             : faq
         )
       )
-      setEditingId(null); // Exit editing
+      setEditingId(null);
     }
   }
 
@@ -105,11 +102,27 @@ const FAQboard = () => {
   }, []);
 
   return (
-      <div>
-        <div className="mt-10">
+        <Main className='flex flex-1 flex-col gap-4 sm:gap-6'>
+          <div className='flex flex-wrap items-end justify-between gap-2'>
+            <div>
+              <h2 className='text-2xl font-bold tracking-tight'>Frequently Asked Questions</h2>
+              <p className='text-muted-foreground'>
+                Manage FAQs and their answers here.
+              </p>
+            </div>
+            <FAQAddButton />
+          </div>
+          <div>Hello</div>
+      </Main>
+  )
+
+  };
+
+  export default FAQboard;
+
+          {/* <div className="mt-10">
           <h3 className="text-2xl font-semibold mb-4">FAQ Management Panel</h3>
 
-          {/* --- Add FAQ Form --- */}
           <form onSubmit={addFAQ} className="mb-8 space-y-3">
             <input
               type="text"
@@ -184,9 +197,4 @@ const FAQboard = () => {
               ))}
             </div>
           )}
-        </div>
-      </div>
-    );
-  };
-
-  export default FAQboard;
+        </div> */}
