@@ -1,5 +1,5 @@
 import { Main } from "../../components/Main/index";
-import { FAQAddButton } from "../../components/FAQAddButton";
+import { FAQDialog } from "../../components/FAQDialog";
 import { useFaqs } from "../../hooks/use-faqs";
 import FAQList from "../../components/FAQList/index";
 
@@ -17,7 +17,7 @@ const FAQboard = () => {
             Manage FAQs and their answers here.
           </p>
         </div>
-        <FAQAddButton
+        <FAQDialog
           onSubmit={(q, a) => addFaq(q, a)}
           submitting={submitting}
         />
