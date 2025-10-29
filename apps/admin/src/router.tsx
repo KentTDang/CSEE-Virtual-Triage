@@ -1,24 +1,16 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Signup from "./components/Signup.js";
 import Signin from "./components/Signin.js";
 import Dashboard from "./components/Dashboard.js";
-import PrivateRoute from "./components/PrivateRoute.js";
-import FAQboard from "./components/FAQboard.js";
-
-function PrivateLayout() {
-    return (
-        <PrivateRoute>
-            <Outlet />
-        </PrivateRoute>
-    )
-}
+import FAQboard from "./views/FAQ/index.js";
+import { Root } from "./views/Root/index.js";
 
 export const router = createBrowserRouter([
     { path: "/", element: <Signin />},
     { path: "/signup", element: <Signup />},
     { path: "/signin", element: <Signin />},
     {
-        element: <PrivateLayout />,
+        element: <Root />,
         children: [
             {path: "/faq", element: <FAQboard />},
             {path: "/dashboard", element: <Dashboard />},
