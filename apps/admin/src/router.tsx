@@ -1,22 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App.js";
 import Signup from "./components/Signup.js";
 import Signin from "./components/Signin.js";
 import Dashboard from "./components/Dashboard.js";
-import PrivateRoute from "./components/PrivateRoute.js";
-import FAQboard from "./components/FAQboard.js";
+import FAQboard from "./views/FAQ/index.js";
+import { Root } from "./views/Root/index.js";
 
 export const router = createBrowserRouter([
-    { path: "/", element: <App />},
+    { path: "/", element: <Signin />},
     { path: "/signup", element: <Signup />},
     { path: "/signin", element: <Signin />},
-    { path: "/FAQboard", element: <FAQboard/>},
-    { 
-        path: "/dashboard", 
-        element: (
-            <PrivateRoute>
-                <Dashboard />{" "}
-            </PrivateRoute>
-        ),
+    {
+        element: <Root />,
+        children: [
+            {path: "/faq", element: <FAQboard />},
+            {path: "/dashboard", element: <Dashboard />},
+        ]
     },
 ]);

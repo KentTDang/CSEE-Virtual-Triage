@@ -25,7 +25,7 @@ const Dashboard = () => {
   };
 
   const handleFAQ = () => {
-    navigate('/FAQboard');
+    navigate('/faq');
   }
 
   const handleChatbot = () => {
