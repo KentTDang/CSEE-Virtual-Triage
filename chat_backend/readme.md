@@ -1,5 +1,4 @@
 #Create venv
-
 For windows:
 py -m venv myenv
 .\myenv\Scripts\activate
