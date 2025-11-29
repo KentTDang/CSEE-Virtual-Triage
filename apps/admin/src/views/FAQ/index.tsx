@@ -4,7 +4,7 @@ import { useFaqs } from "../../hooks/use-faqs";
 import FAQList from "../../components/FAQList/index";
 
 const FAQboard = () => {
-  const { faqs, loading, submitting, addFaq, updateFaq, deleteFaq } = useFaqs();
+  const { faqs, loading, submitting, addFaq, updateFaq, deleteFaq, search, setSearch, sortOption, setSortOption } = useFaqs();
 
   return (
     <Main className="flex flex-1 flex-col gap-4 sm:gap-6">
@@ -22,6 +22,27 @@ const FAQboard = () => {
           submitting={submitting}
         />
       </div>
+
+      {/* Search + Sort */}
+      <div className="flex flex-col sm:flex-row gap-3 w-full mt-4">
+        <input
+          type="text"
+          placeholder="Search FAQs..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="border p-2 rounded flex-1"
+        />
+
+        <select
+          value={sortOption}
+          onChange={(e) => setSortOption(e.target.value)}
+          className="border p-2 rounded"
+        >
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+        </select>
+      </div>
+      
       {loading ? (
         <p>Loading FAQs...</p>
       ) : (
