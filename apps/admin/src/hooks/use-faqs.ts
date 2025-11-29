@@ -14,7 +14,7 @@ export const useFaqs = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
-  const [sortOption, setSortOption] = useState<"newest" | "oldest" | "az" | "za">("newest");
+  const [sortOption, setSortOption] = useState<"newest" | "oldest" | "asc" | "desc">("newest");
 
 
   const getFaqs = useCallback(async () => {
@@ -103,16 +103,17 @@ export const useFaqs = () => {
       faq.answer.toLowerCase().includes(search.toLowerCase())
     )
     .sort((a, b) => {
-      if (sortOption === "newest") {
-        return Number(new Date(b.create_at).getTime()) - Number(new Date(a.create_at).getTime());
+      if (sortOption === 'newest') {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
       }
-      if (sortOption === "oldest") {
-        return Number(new Date(a.create_at).getTime()) - Number(new Date(b.create_at).getTime());
+
+      if (sortOption === 'oldest') {
+        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
       }
-      if (sortOption === "az") {
+      if (sortOption === 'asc') {
         return a.question.localeCompare(b.question);
       }
-      if (sortOption === "za") {
+      if (sortOption === 'desc') {
         return b.question.localeCompare(a.question);
       }
       return 0;

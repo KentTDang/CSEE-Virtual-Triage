@@ -40,6 +40,8 @@ const FAQboard = () => {
         >
           <option value="newest">Newest First</option>
           <option value="oldest">Oldest First</option>
+          <option value="asc">A to Z</option>
+          <option value="desc">Z to A</option>
         </select>
       </div>
       
