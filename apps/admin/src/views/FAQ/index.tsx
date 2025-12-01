@@ -35,7 +35,7 @@ const FAQboard = () => {
 
         <select
           value={sortOption}
-          onChange={(e) => setSortOption(e.target.value)}
+          onChange={(e) => setSortOption(e.target.value as "newest" | "oldest" | "asc" | "desc")}
           className="border p-2 rounded"
         >
           <option value="newest">Newest First</option>
