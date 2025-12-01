@@ -4,7 +4,7 @@ interface FAQ {
   id: string;
   question: string;
   answer: string;
-  create_at: string;
+  created_at: string;
   updated_by?: string;
 }
 

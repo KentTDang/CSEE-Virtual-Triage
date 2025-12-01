@@ -5,7 +5,7 @@ interface FAQ {
   id: string;
   question: string;
   answer: string;
-  create_at: string;
+  created_at: string;
   updated_by?: string;
 }
 
@@ -13,6 +13,9 @@ export const useFaqs = () => {
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
+  const [sortOption, setSortOption] = useState<"newest" | "oldest" | "asc" | "desc">("newest");
+
 
   const getFaqs = useCallback(async () => {
     setLoading(true);
@@ -94,13 +97,42 @@ export const useFaqs = () => {
     await getFaqs();
   };
 
+  const filteredAndSortedFaqs = faqs
+    .filter(faq =>
+      faq.question.toLowerCase().includes(search.toLowerCase()) ||
+      faq.answer.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOption === 'newest') {
+        return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      }
+
+      if (sortOption === 'oldest') {
+        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+      }
+      if (sortOption === 'asc') {
+        return a.question.localeCompare(b.question);
+      }
+      if (sortOption === 'desc') {
+        return b.question.localeCompare(a.question);
+      }
+      return 0;
+    });
+
+
+
+
   return {
-    faqs,
+    faqs: filteredAndSortedFaqs,
     loading,
     submitting,
     addFaq,
     updateFaq,
     deleteFaq,
     refetch: getFaqs,
+    search,
+    setSearch,
+    sortOption,
+    setSortOption,
   };
 };
