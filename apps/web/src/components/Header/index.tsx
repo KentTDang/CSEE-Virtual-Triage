@@ -1,0 +1,47 @@
+import { cn } from "@workspace/ui/lib/utils";
+import { useEffect, useState } from "react";
+import umbcLogo from "../../../assets/umbc-dark-logo.png";
+
+type HeaderProps = React.HTMLAttributes<HTMLElement> & {
+  fixed?: boolean;
+  ref?: React.Ref<HTMLElement>;
+};
+
+export const Header = ({
+  className,
+  fixed,
+  children,
+  ...props
+}: HeaderProps) => {
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setOffset(document.body.scrollTop || document.documentElement.scrollTop);
+    };
+
+    // Add scroll listener to the body
+    document.addEventListener("scroll", onScroll, { passive: true });
+
+    // Clean up the event listener on unmount
+    return () => document.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <header
+      className={cn(
+        "z-50 h-16 bg-black border-b-4 border-[#fdb515]",
+        fixed && "header-fixed peer/header sticky top-0 w-[inherit]",
+        offset > 10 && fixed ? "shadow" : "shadow-none",
+        className
+      )}
+      {...props}
+    >
+      <div className="relative flex h-full items-center gap-3 p-4 sm:gap-4">
+        <div className="flex items-center">
+          <img src={umbcLogo} alt="UMBC Shield" className="h-6" />
+        </div>
+      </div>
+    </header>
+  );
+};
