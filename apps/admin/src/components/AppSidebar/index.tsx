@@ -39,7 +39,7 @@ const items = [
   },
   {
     title: "Tickets",
-    url: "/",
+    url: "/helpticket",
     icon: Inbox,
   },
   {
