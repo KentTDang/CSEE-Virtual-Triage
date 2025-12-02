@@ -1,22 +1,24 @@
-"use client";
-
 import { useState } from "react";
 
 import {
   Conversation,
   ConversationContent,
   ConversationScrollButton,
-} from "../../../../../packages/ui/src/components/ui/shadcn-io/ai/conversation";
+} from "@workspace/ui/components/ui/shadcn-io/ai/conversation";
 import {
   Message,
   MessageContent,
-} from "../../../../../packages/ui/src/components/ui/shadcn-io/ai/message";
+} from "@workspace/ui/components/ui/shadcn-io/ai/message";
 import {
   PromptInput,
   PromptInputTextarea,
   PromptInputSubmit,
-} from "../../../../../packages/ui/src/components/ui/shadcn-io/ai/prompt-input";
-import { Response } from "../../../../../packages/ui/src/components/ui/shadcn-io/ai/response";
+  PromptInputButton,
+  PromptInputToolbar,
+  PromptInputTools,
+} from "@workspace/ui/components/ui/shadcn-io/ai/prompt-input";
+import { Response } from "@workspace/ui/components/ui/shadcn-io/ai/response";
+import { MicIcon, PaperclipIcon } from "lucide-react";
 
 type ChatMessage = {
   id: string;
@@ -24,17 +26,14 @@ type ChatMessage = {
   parts: { type: "text"; text: string }[];
 };
 
-export default function App() {
+export const Chatbot = () => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [status, setStatus] = useState<"idle" | "submitting">("idle");
 
-  // ✅ Corrected base (no trailing /chat)
-  const API_BASE = "http://localhost:8000";
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || status === "submitting") return;
 
     const userMsg: ChatMessage = {
       id: crypto.randomUUID(),
@@ -46,7 +45,7 @@ export default function App() {
     setStatus("submitting");
 
     try {
-      const res = await fetch(`${API_BASE}/ask`, {
+      const res = await fetch("http://localhost:8000/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: input, top_k: 4 }),
@@ -77,8 +76,8 @@ export default function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen max-w-3xl mx-auto p-4">
-      <Conversation className="relative flex-1 w-full border rounded-lg p-4 overflow-hidden">
+    <div className="flex h-[calc(100vh-4rem)] flex-col items-center">
+      <Conversation className="flex-1 overflow-y-auto w-3xl">
         <ConversationContent>
           {messages.length === 0 ? (
             <Message from="system">
@@ -101,20 +100,27 @@ export default function App() {
         <ConversationScrollButton />
       </Conversation>
 
-      <PromptInput
-        onSubmit={handleSubmit}
-        className="mt-4 border-t pt-4 flex flex-col gap-2"
-      >
-        <PromptInputTextarea
-          value={input}
-          placeholder="Ask your question..."
-          onChange={(e) => setInput(e.currentTarget.value)}
-        />
-        <PromptInputSubmit
-          status={(status === "idle" ? "ready" : "in_progress") as any}
-          disabled={!input.trim()}
-        />
-      </PromptInput>
+      <div className="p-8 w-full flex items-center justify-center">
+        <PromptInput onSubmit={handleSubmit} className="w-3xl">
+          <PromptInputTextarea
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
+            placeholder="Type your message..."
+          />
+          <PromptInputToolbar>
+            <PromptInputTools>
+              <PromptInputButton>
+                <PaperclipIcon size={16} />
+              </PromptInputButton>
+              <PromptInputButton>
+                <MicIcon size={16} />
+                <span>Voice</span>
+              </PromptInputButton>
+            </PromptInputTools>
+            <PromptInputSubmit disabled={!input} />
+          </PromptInputToolbar>
+        </PromptInput>
+      </div>
     </div>
   );
-}
+};
