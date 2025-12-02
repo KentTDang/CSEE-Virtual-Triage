@@ -6,7 +6,8 @@ import {
   Search,
   Settings,
   User2,
-  LogOut
+  LogOut,
+  List
 } from "lucide-react";
 
 import {
@@ -33,23 +34,18 @@ import { UserAuth } from "../../context/AuthContext"
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/dashboard",
     icon: Home,
   },
   {
-    title: "Inbox",
-    url: "#",
+    title: "Tickets",
+    url: "/",
     icon: Inbox,
   },
   {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
+    title: "FAQ Management",
+    url: "/faq",
+    icon: List,
   },
   {
     title: "Settings",
