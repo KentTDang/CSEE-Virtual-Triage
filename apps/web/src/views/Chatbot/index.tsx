@@ -76,28 +76,31 @@ export const Chatbot = () => {
   };
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] flex-col items-center">
-      <Conversation className="flex-1 overflow-y-auto w-3xl">
-        <ConversationContent>
-          {messages.length === 0 ? (
-            <Message from="system">
-              <MessageContent>Start the conversation below 👇</MessageContent>
-            </Message>
-          ) : (
-            messages.map((message) => (
-              <Message from={message.role} key={message.id}>
-                <MessageContent>
-                  {message.parts?.map((part, idx) =>
-                    part.type === "text" ? (
-                      <Response key={idx}>{part.text}</Response>
-                    ) : null
-                  )}
-                </MessageContent>
+    <div className="flex h-screen flex-col">
+      <Conversation className="w-full flex-1">
+        <div className="w-full max-w-3xl mx-auto">
+          <ConversationContent>
+            {messages.length === 0 ? (
+              <Message from="system">
+                <MessageContent>Start the conversation below 👇</MessageContent>
               </Message>
-            ))
-          )}
-        </ConversationContent>
-        <ConversationScrollButton />
+            ) : (
+              messages.map((message) => (
+                <Message from={message.role} key={message.id}>
+                  <MessageContent>
+                    {message.parts?.map((part, idx) =>
+                      part.type === "text" ? (
+                        <Response key={idx}>{part.text}</Response>
+                      ) : null
+                    )}
+                  </MessageContent>
+                </Message>
+              ))
+            )}
+          </ConversationContent>
+
+          <ConversationScrollButton />
+        </div>
       </Conversation>
 
       <div className="p-8 w-full flex items-center justify-center">
