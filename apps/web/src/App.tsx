@@ -1,11 +1,14 @@
 import { Header } from "./components/Header";
-import { Chatbot } from "./views/Chatbot";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./Routes"
 
 export default function App() {
   return (
     <div className="flex h-screen flex-col overflow-hidden">
-      <Header />
-      <Chatbot />
+      <BrowserRouter>
+        <Header />
+        <AppRoutes />
+      </BrowserRouter>
     </div>
   );
 }
