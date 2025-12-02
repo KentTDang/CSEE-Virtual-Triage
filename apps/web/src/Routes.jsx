@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import FAQPage from "./views/FAQ/index";
 import { Chatbot } from "./views/Chatbot/index";
+import Helpticket from "./views/Helpticket/index";
 
 export default function AppRoutes() {
   return (
@@ -9,6 +10,7 @@ export default function AppRoutes() {
       <Route path="/" element={<Dashboard />} />
       <Route path="/faq" element={<FAQPage />} />
       <Route path="/chatbot" element={<Chatbot />} />
+      <Route path="/helpticket" element={<Helpticket />} />
     </Routes>
   );
 }
