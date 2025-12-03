@@ -65,7 +65,7 @@ export const ChatMessage = ({
 
       <div
         className={cn(
-          "max-w-[80%] px-4 py-3 text-[15px] leading-relaxed",
+          "max-w-[80%] px-4 py-1 text-[15px] leading-relaxed",
           isUser ? "chat-bubble-user" : "chat-bubble-assistant"
         )}
       >
