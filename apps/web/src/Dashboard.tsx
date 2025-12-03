@@ -1,29 +1,23 @@
-import { UserAuth } from "../context/AuthContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@workspace/ui/components/button";
-import bgImage from "../../assets/maryland-flag-backgrounds-landscape-black.jpg"
+import bgImage from "../assets/maryland-flag-backgrounds-landscape-black.jpg"
 
-const Dashboard = () => {
-  const { session, signOut } = UserAuth();
+export default function Dashboard() {
   const navigate = useNavigate();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const cards = [
     {
-      title: "FAQ Management",
+      title: "FAQ",
       description: "Edit, organize, and update the FAQ database.",
       path: "/faq",
     },
     {
-      title: "Resolve Tickets",
+      title: "Chatbot",
+      description: "Edit, organize, and update the FAQ database.",
+      path: "/faq",
+    },
+    {
+      title: "Request Help",
       description: "View and resolve chatbot-submitted help requests.",
       path: "/resolveTicket",
     },
@@ -33,28 +27,23 @@ const Dashboard = () => {
     <div>
       <div className="flex justify-between items-center m-5 mx-10 ">
         <div>
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <h1 className="text-3xl font-bold">Dashboard</h1>
           <h2 className="text-gray-600">
-            Hello, {session?.user?.email}
+            Welcome!
           </h2>
         </div>
 
-        <Button variant="destructive" onClick={handleSignOut}>
-          Sign Out
-        </Button>
       </div>
     
       <div className="min-h-screen p-6 pt-10" style={{backgroundImage: `url(${bgImage})`}}>
         <div>
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl text-white font-bold drop-shadow-lg leading-relaxed">
-              Welcome to the CSEE Virtual Triage System. Through this portal you
-              will be able to manage the FAQ table and resolve help tickets sent by
-              the users.
+              Welcome to the CSEE Virtual Triage System. Use this portal to view CSEE FAQs and recieve support through the chatbot or help ticket system.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {cards.map((card) => (
               <div
                 key={card.title}
@@ -80,6 +69,4 @@ const Dashboard = () => {
       </div>
     </div>
   );
-};
-
-export default Dashboard;
+}

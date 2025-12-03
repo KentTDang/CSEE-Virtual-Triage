@@ -22,26 +22,28 @@ export const Header = ({
       setOffset(document.body.scrollTop || document.documentElement.scrollTop);
     };
 
-    // Add scroll listener to the body
     document.addEventListener("scroll", onScroll, { passive: true });
 
-    // Clean up the event listener on unmount
     return () => document.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <header
       className={cn(
-        "z-50 h-16 bg-black border-b-4 border-[#fdb515]",
+        "z-50 h-16 bg-black border-b-4 border-[#fdb515] mb-2",
         fixed && "header-fixed peer/header sticky top-0 w-[inherit]",
         offset > 10 && fixed ? "shadow" : "shadow-none",
-        className
+        className,
       )}
       {...props}
     >
       <div className="relative flex h-full items-center gap-3 p-4 sm:gap-4 justify-between">
         <div className="flex items-center">
-          <img src={umbcLogo} alt="UMBC Shield" className="h-6" />
+          <img
+            src={umbcLogo}
+            alt="UMBC Shield"
+            className="h-6"
+          />
         </div>
         <div className="flex">
           <span className="text-white m-2 flex items-center">

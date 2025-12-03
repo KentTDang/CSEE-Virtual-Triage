@@ -1,19 +1,13 @@
 import {
-  Calendar,
-  ChevronUp,
   Home,
   Inbox,
   Search,
-  Settings,
-  User2,
-  LogOut,
   List
 } from "lucide-react";
 
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -21,42 +15,33 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@workspace/ui/components/sidebar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@workspace/ui/components/dropdown-menu";
 import shieldLightBg from "../../../assets/shield-light-bg.png";
-import { UserAuth } from "../../context/AuthContext"
 
 // Menu items.
 const items = [
   {
     title: "Home",
-    url: "/dashboard",
+    url: "/",
     icon: Home,
   },
   {
-    title: "Tickets",
-    url: "/resolveTicket",
-    icon: Inbox,
+    title: "Chatbot",
+    url: "/chatbot",
+    icon: Search,
   },
   {
-    title: "FAQ Management",
+    title: "FAQ Page",
     url: "/faq",
     icon: List,
   },
   {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
+    title: "Request Help",
+    url: "/helpticket",
+    icon: Inbox,
   },
 ];
 
-export function AppSidebar() {
-
-  const { session, signOut } = UserAuth();
+export function WebSidebar() {
   
   return (
     <Sidebar>
@@ -88,28 +73,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <User2 /> {session?.user?.email}
-                  <ChevronUp className="ml-auto" />
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                side="top"
-                className="w-[--radix-popper-anchor-width]"
-              >
-                <DropdownMenuItem variant="destructive">
-                  <button className="flex justify-center items-center gap-2" onClick={signOut}><LogOut size={6} className="text-red-600"/>Sign out</button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   );
 }

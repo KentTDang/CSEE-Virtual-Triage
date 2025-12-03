@@ -4,6 +4,7 @@ import Signin from "./components/Signin.js";
 import Dashboard from "./components/Dashboard.js";
 import FAQboard from "./views/FAQ/index.js";
 import { Root } from "./views/Root/index.js";
+import HelpTickets from "./views/ResolveTicket/index.js";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Signin /> },
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "/faq", element: <FAQboard /> },
       { path: "/dashboard", element: <Dashboard /> },
+      { path: "/resolveTicket", element: <HelpTickets />}
     ],
   },
 ]);

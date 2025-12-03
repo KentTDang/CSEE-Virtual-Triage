@@ -4,7 +4,6 @@ import { cn } from "@workspace/ui/lib/utils";
 import { useEffect, useState } from "react";
 import umbcLogo from "../../../assets/umbc-dark-logo.png";
 
-
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {
   fixed?: boolean;
   ref?: React.Ref<HTMLElement>;
@@ -23,10 +22,8 @@ export const Header = ({
       setOffset(document.body.scrollTop || document.documentElement.scrollTop);
     };
 
-    // Add scroll listener to the body
     document.addEventListener("scroll", onScroll, { passive: true });
 
-    // Clean up the event listener on unmount
     return () => document.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -44,12 +41,11 @@ export const Header = ({
         <SidebarTrigger variant="default" className="max-md:scale-125" />
         <Separator orientation="vertical" className="h-6" />
         <div className="flex items-center">
-
-        <img
-              src={umbcLogo}
-              alt="UMBC Shield"
-              className="h-6"
-            />
+          <img
+            src={umbcLogo}
+            alt="UMBC Shield"
+            className="h-6"
+          />
         </div>
       </div>
     </header>
