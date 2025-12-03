@@ -24,7 +24,7 @@ export function FAQ() {
             <span>FAQs</span>
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-2xl">
           <DialogHeader>
             <DialogTitle>Frequently asked questions</DialogTitle>
             <div className="flex flex-col sm:flex-row gap-3 w-full mt-4">
