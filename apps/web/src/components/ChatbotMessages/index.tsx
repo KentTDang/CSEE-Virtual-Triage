@@ -14,6 +14,7 @@ type Source = {
 interface ChatMessageProps {
   role: MessageRole;
   content: string;
+  category: string;
   isLatest?: boolean;
   sources?: Source[];
 }
@@ -21,6 +22,7 @@ interface ChatMessageProps {
 export const ChatMessage = ({
   role,
   content,
+  category,
   isLatest,
   sources = [],
 }: ChatMessageProps) => {
@@ -57,7 +59,7 @@ export const ChatMessage = ({
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center"
+          className="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center"
         >
           <Sparkles className="w-4 h-4 text-primary" />
         </motion.div>
@@ -69,8 +71,9 @@ export const ChatMessage = ({
           isUser ? "chat-bubble-user" : "chat-bubble-assistant"
         )}
       >
+        {!isUser && <p className="whitespace-pre-wrap">{category}</p>}
         <p className="whitespace-pre-wrap">{content}</p>
-        {!isUser && <ChatbotSources sources={sources} />}
+        {!isUser && sources.length > 0 && <ChatbotSources sources={sources} />}
       </div>
 
       {isUser && (
@@ -78,7 +81,7 @@ export const ChatMessage = ({
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.1 }}
-          className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center"
+          className="shrink-0 w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center"
         >
           <User className="w-4 h-4 text-primary" />
         </motion.div>

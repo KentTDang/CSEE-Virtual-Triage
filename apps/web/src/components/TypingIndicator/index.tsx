@@ -9,7 +9,7 @@ export const TypingIndicator = () => {
       exit={{ opacity: 0, y: -8 }}
       className="flex gap-3 w-full justify-start"
     >
-      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center">
+      <div className="shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center">
         <Sparkles className="w-4 h-4 text-primary" />
       </div>
 

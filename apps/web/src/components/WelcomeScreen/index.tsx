@@ -32,7 +32,7 @@ export const WelcomeScreen = ({ onSuggestionClick }: WelcomeScreenProps) => {
         transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
         className="relative mb-6"
       >
-        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[hsl(43_97%_54%)] via-amber-500 to-primary flex items-center justify-center glow-primary">
+        <div className="w-20 h-20 rounded-2xl bg-linear-to-br from-[hsl(43_97%_54%)] via-amber-500 to-primary flex items-center justify-center glow-primary">
           <Sparkles className="w-10 h-10 text-primary-foreground" />
         </div>
         <motion.div
