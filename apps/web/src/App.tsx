@@ -1,5 +1,5 @@
 import { Header } from "./components/Header";
-import { Chatbot } from "./views/Chatbot";
+import { Chatbot } from "./components/Chatbot";
 
 export default function App() {
   return (

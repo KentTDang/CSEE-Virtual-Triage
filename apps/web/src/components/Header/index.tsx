@@ -1,6 +1,8 @@
 import { cn } from "@workspace/ui/lib/utils";
 import { useEffect, useState } from "react";
 import umbcLogo from "../../../assets/umbc-dark-logo.png";
+import { CircleUserRound, MessageCircleQuestion } from "lucide-react";
+import { FAQ } from "../FAQDialog";
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {
   fixed?: boolean;
@@ -37,9 +39,18 @@ export const Header = ({
       )}
       {...props}
     >
-      <div className="relative flex h-full items-center gap-3 p-4 sm:gap-4">
+      <div className="relative flex h-full items-center gap-3 p-4 sm:gap-4 justify-between">
         <div className="flex items-center">
           <img src={umbcLogo} alt="UMBC Shield" className="h-6" />
+        </div>
+        <div className="flex">
+          <span className="text-white m-2 flex items-center">
+            <CircleUserRound size={16} />
+            Contact
+          </span>
+          <span className="text-white m-2 flex items-center">
+            <FAQ />
+          </span>
         </div>
       </div>
     </header>
