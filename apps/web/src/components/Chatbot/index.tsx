@@ -72,7 +72,7 @@ export const Chatbot = () => {
   const hasMessages = messages.length > 0;
 
   return (
-    <div className="flex flex-col h-screen bg-background">
+    <div className="flex flex-col flex-1 min-h-0 bg-background">
       {/* Chat area */}
       <main className="flex-1 overflow-y-auto pt-20 pb-32 scrollbar-thin">
         <div className="max-w-3xl mx-auto px-4">
