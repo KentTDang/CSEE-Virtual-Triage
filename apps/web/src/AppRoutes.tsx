@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { Root } from "./views/Root/index";
 import Dashboard from "./Dashboard";
 import FAQPage from "./views/FAQ";
-import { Chatbot } from "./views/Chatbot";
+import { Chatbot } from "./components/Chatbot";
 import Helpticket from "./views/Helpticket";
 
 export default function AppRoutes() {
