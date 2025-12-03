@@ -14,7 +14,7 @@ export default function Dashboard() {
     {
       title: "Chatbot",
       description: "Edit, organize, and update the FAQ database.",
-      path: "/faq",
+      path: "/chatbot",
     },
     {
       title: "Request Help",
