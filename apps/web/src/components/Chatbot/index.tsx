@@ -5,10 +5,17 @@ import { ChatInput } from "../ChatbotInput";
 import { TypingIndicator } from "../TypingIndicator";
 import { WelcomeScreen } from "../WelcomeScreen";
 
+type Source = {
+  title: string;
+  url: string;
+  chunk_index: number;
+};
+
 type ChatMessageType = {
   id: string;
   role: MessageRole;
   content: string;
+  sources?: Source[];
 };
 
 export const Chatbot = () => {
@@ -43,11 +50,13 @@ export const Chatbot = () => {
 
       if (!res.ok) throw new Error(`Server error ${res.status}`);
       const data = await res.json();
+      const rawSources = data.sources;
 
       const assistantMsg: ChatMessageType = {
         id: crypto.randomUUID(),
         role: "assistant",
         content: data.answer || "I couldn't find an answer to that question.",
+        sources: Array.isArray(rawSources) ? rawSources : [],
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
@@ -87,6 +96,7 @@ export const Chatbot = () => {
                     role={message.role}
                     content={message.content}
                     isLatest={index === messages.length - 1}
+                    sources={message.sources}
                   />
                 ))}
                 <AnimatePresence>

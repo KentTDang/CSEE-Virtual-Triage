@@ -1,16 +1,29 @@
 import { motion } from "framer-motion";
+import { ChatbotSources } from "../ChatbotSources";
 import { User, Sparkles } from "lucide-react";
 import { cn } from "@workspace/ui/lib/utils";
 
 export type MessageRole = "user" | "assistant" | "system";
 
+type Source = {
+  title: string;
+  url: string;
+  chunk_index: number;
+};
+
 interface ChatMessageProps {
   role: MessageRole;
   content: string;
   isLatest?: boolean;
+  sources?: Source[];
 }
 
-export const ChatMessage = ({ role, content, isLatest }: ChatMessageProps) => {
+export const ChatMessage = ({
+  role,
+  content,
+  isLatest,
+  sources = [],
+}: ChatMessageProps) => {
   const isUser = role === "user";
   const isSystem = role === "system";
 
@@ -52,11 +65,12 @@ export const ChatMessage = ({ role, content, isLatest }: ChatMessageProps) => {
 
       <div
         className={cn(
-          "max-w-[80%] px-4 py-3 text-[15px] leading-relaxed",
+          "max-w-[80%] px-4 py-1 text-[15px] leading-relaxed",
           isUser ? "chat-bubble-user" : "chat-bubble-assistant"
         )}
       >
         <p className="whitespace-pre-wrap">{content}</p>
+        {!isUser && <ChatbotSources sources={sources} />}
       </div>
 
       {isUser && (

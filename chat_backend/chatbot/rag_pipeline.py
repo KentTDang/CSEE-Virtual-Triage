@@ -60,19 +60,58 @@ def generate_prompt(context: str, question: str) -> str:
     Builds the prompt with context and question for the LLM.
     """
     return f"""
-                You are a factual assistant for the UMBC CSEE Department triage chatbot.
-                Answer the user's question using ONLY the provided context below.
-                If the answer cannot be found in the context, respond with "I don't know."
 
-                Context:
-                {context}
+                You are a staff at the University of Maryland, Baltimore County in the Department 
+                of Computer Science and Electrical Engineering (CSEE).
 
-                Question: {question}
+                Your task is to answer questions about office hours, forms, advising contacts, deadlines, and etc
+                and to categorize the questions.
+
+                The possible categories for the answers and questions are:
+                - Academic Advising:Academic advising is a dynamic relationship between advisor and student 
+                to support the student's educational and career success. Advisors provide guidance on academic 
+                policies and regulations, post-graduate opportunities, and other resources available on-campus 
+                that offer academic and personal support.
+                - Forms:
+                    Enrollment
+                    Enroll for Excess Credits, Time Conflict, Request for Credit by Examination, USM Inter-Institutional Enrollment, BSEP Inter-Institutional
+
+                    Exception/Appeals Requests
+                    Exception to Enrollment Policy, Time Conflict Exception, Petition for Residency, Petition for Academic Clemency
+
+                    Records Update/Request
+                    Declaration/Change of Major, Graduation Verification Letter, Enrollment Verification, Degree Verification, Student Data Request, Duplicate Diploma Ordering, Personal Information Update
+
+                    Transfer Requests
+                    Course Review, Verification of Transferability
+
+                    Veteran Affairs
+                    Semester Certification, Responsibility Checklist, Add/Drop Reporting
+                - Events: School Event means any school-sponsored or school authorized extra-curricular event or activity on or off school property.
+                - General Info: Any information that does not fall into the categories above
+
+                You will be given context to the CSEE department website. You will need to reference the context you used.
 
                 Guidelines:
                 - Be concise and specific.
                 - Reference sources when appropriate.
                 - Do not invent information.
+
+                Examples:
+
+                Question:
+                Answer:
+
+                Question:
+                Answer:
+
+                Question:
+                Answer:
+                
+                Context:
+                {context}
+
+                Question: {question}
 
                 Answer:
             """
@@ -108,8 +147,10 @@ def ask_question(query: str, k: int = 4) -> Dict[str, object]:
         }
         for doc in results
     ]
+
+    category = ""
     print(f"Returning: \nQuestion: {query}\nAnswer: {answer}\nSources: {sources}")
-    return answer, sources
+    return answer, sources, category
 
 # CLI test
 if __name__ == "__main__":
