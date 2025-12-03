@@ -12,31 +12,23 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Dict, Union
+from typing import List
 import json
-import time
 
-from rag_pipeline import ask_question
+from chatbot.rag import Chatbot
 
-
-# -----------------------------
-# Data Models
-# -----------------------------
 class QuestionRequest(BaseModel):
     query: str
     top_k: int = 4
 
-
 class Source(BaseModel):
     title: str
     url: str
-    chunk_index: Union[int, str, None] = None
 
-
-class AnswerResponse(BaseModel):
+class StructuredOutput(BaseModel):
     answer: str
+    category: str
     sources: List[Source]
-
 
 # -----------------------------
 # App Initialization
@@ -55,6 +47,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+chatbot = Chatbot()
 
 # -----------------------------
 # Health Check
@@ -67,11 +60,13 @@ async def health_check():
 # -----------------------------
 # Standard JSON RAG Endpoint
 # -----------------------------
-@app.post("/ask", response_model=AnswerResponse)
+@app.post("/ask", response_model=StructuredOutput)
 async def ask_question_endpoint(request: QuestionRequest):
+    print("Inside of chatbot ask endpoint")
     try:
-        answer, sources = ask_question(request.query, k=request.top_k)
-        return {"answer": answer, "sources": sources}
+        response = chatbot.evaluate(request.query, k=request.top_k)
+        print("Ask Endpoint: ", response)
+        return response
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

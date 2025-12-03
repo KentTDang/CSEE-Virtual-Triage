@@ -14,6 +14,7 @@ type Source = {
 interface ChatMessageProps {
   role: MessageRole;
   content: string;
+  category: string;
   isLatest?: boolean;
   sources?: Source[];
 }
@@ -21,6 +22,7 @@ interface ChatMessageProps {
 export const ChatMessage = ({
   role,
   content,
+  category,
   isLatest,
   sources = [],
 }: ChatMessageProps) => {
@@ -69,6 +71,7 @@ export const ChatMessage = ({
           isUser ? "chat-bubble-user" : "chat-bubble-assistant"
         )}
       >
+        {!isUser && <p className="whitespace-pre-wrap">{category}</p>}
         <p className="whitespace-pre-wrap">{content}</p>
         {!isUser && <ChatbotSources sources={sources} />}
       </div>

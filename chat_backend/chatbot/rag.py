@@ -11,6 +11,7 @@ from typing_extensions import Annotated, TypedDict
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.prompts import PromptTemplate
+from pydantic import BaseModel
 
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -19,10 +20,15 @@ CHROMA_TENANT = os.getenv("CHROMA_TENANT")
 CHROMA_DATABASE = os.getenv("CHROMA_DATABASE", "Development")
 COLLECTION_NAME = os.getenv("CHROMA_COLLECTION", "csee-department")
 
-class StructuredOutput(TypedDict):
-    answer: Annotated[str, ..., "The answer to the question"]
-    category: Annotated[str, ..., "The category of the question"]
-    sources: Annotated[List[str], ..., "List of URLs or references used to support your conclusion"]
+class Source(BaseModel):
+    title: str
+    url: str
+
+class StructuredOutput(BaseModel):
+    answer: str
+    category: str
+    sources: List[Source]
+
 class Chatbot:
 
     def __init__(self):
@@ -122,7 +128,7 @@ class Chatbot:
         prompt = self.prompt.format(context=built_context, question=query)
         structured_llm = self.llm.with_structured_output(StructuredOutput, method="json_schema")
 
-        response = structured_llm.invoke(prompt)
+        response: StructuredOutput = structured_llm.invoke(prompt)
 
         print("Response: ", response)
         return response

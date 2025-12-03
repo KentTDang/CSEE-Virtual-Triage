@@ -15,6 +15,7 @@ type ChatMessageType = {
   id: string;
   role: MessageRole;
   content: string;
+  category?: string;
   sources?: Source[];
 };
 
@@ -50,12 +51,14 @@ export const Chatbot = () => {
 
       if (!res.ok) throw new Error(`Server error ${res.status}`);
       const data = await res.json();
+      console.log("Server Response: ", data);
       const rawSources = data.sources;
 
       const assistantMsg: ChatMessageType = {
         id: crypto.randomUUID(),
         role: "assistant",
         content: data.answer || "I couldn't find an answer to that question.",
+        category: data.category,
         sources: Array.isArray(rawSources) ? rawSources : [],
       };
 
@@ -95,6 +98,7 @@ export const Chatbot = () => {
                     key={message.id}
                     role={message.role}
                     content={message.content}
+                    category={message.category}
                     isLatest={index === messages.length - 1}
                     sources={message.sources}
                   />
@@ -110,7 +114,7 @@ export const Chatbot = () => {
       </main>
 
       {/* Input area */}
-      <div className="fixed bottom-0 left-0 right-0 bg-linear-to-t from-background via-background to-transparent pt-8 pb-6 px-4">
+      <div className="bottom-0 left-0 right-0 bg-linear-to-t from-background via-background to-transparent pt-8 pb-6 px-4">
         <ChatInput onSubmit={handleSubmit} disabled={isTyping} />
         <p className="text-center text-xs text-muted-foreground/60 mt-3">
           UMBC Assistant can make mistakes.
