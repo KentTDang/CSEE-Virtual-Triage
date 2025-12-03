@@ -2,7 +2,7 @@ import os
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 from dotenv import load_dotenv
-from scrapeNprocess import make_documents
+from chat_backend.scrape.scrapeNprocess import make_documents
 
 load_dotenv()
 
