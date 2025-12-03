@@ -34,13 +34,6 @@ export const ChatInput = ({ onSubmit, disabled }: ChatInputProps) => {
     setInput("");
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit(e);
-    }
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -50,7 +43,7 @@ export const ChatInput = ({ onSubmit, disabled }: ChatInputProps) => {
     >
       <PromptInput
         onSubmit={handleSubmit}
-        className="relative z-10 w-full rounded-3xl p-3 border border-gray-700 bg-[var(--color-bg-primary)] border-['oklch(0.205 0 0)']"
+        className="relative z-10 w-full rounded-3xl p-3 border border-gray-700 bg-(--color-bg-primary) border-['oklch(0.205 0 0)']"
       >
         <PromptInputTextarea
           onChange={(e) => setInput(e.target.value)}

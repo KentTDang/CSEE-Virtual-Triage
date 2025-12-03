@@ -110,7 +110,7 @@ export const Chatbot = () => {
       </main>
 
       {/* Input area */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-background via-background to-transparent pt-8 pb-6 px-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-linear-to-t from-background via-background to-transparent pt-8 pb-6 px-4">
         <ChatInput onSubmit={handleSubmit} disabled={isTyping} />
         <p className="text-center text-xs text-muted-foreground/60 mt-3">
           UMBC Assistant can make mistakes.
