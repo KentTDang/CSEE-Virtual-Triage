@@ -1,14 +1,11 @@
 #Create venv
-For windows:
-py -m venv myenv
-.\myenv\Scripts\activate
+You must have uv installed
 
-For mac:
-python3 -m venv myenv
-source venv/bin/activate
+run: uv suync
+This will give you all the packages
 
-#Install requirements:
-pip install -r requirements.txt
+if you'd like to add a package then run:
+uv add <package name>
 
 #Running in /chat_backend run:
 uv run -m uvicorn api.main:app --reload --port 8000

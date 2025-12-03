@@ -73,7 +73,7 @@ export const ChatMessage = ({
       >
         {!isUser && <p className="whitespace-pre-wrap">{category}</p>}
         <p className="whitespace-pre-wrap">{content}</p>
-        {!isUser && <ChatbotSources sources={sources} />}
+        {!isUser && sources.length > 0 && <ChatbotSources sources={sources} />}
       </div>
 
       {isUser && (
