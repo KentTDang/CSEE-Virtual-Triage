@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import umbcLogo from "../../../assets/umbc-dark-logo.png";
 import { CircleUserRound, MessageCircleQuestion } from "lucide-react";
 import { FAQ } from "../FAQDialog";
+import { ContactDialog } from "../ContactDialog";
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {
   fixed?: boolean;
@@ -47,8 +48,7 @@ export const Header = ({
         </div>
         <div className="flex">
           <span className="text-white m-2 flex items-center">
-            <CircleUserRound size={16} />
-            Contact
+            <ContactDialog />
           </span>
           <span className="text-white m-2 flex items-center">
             <FAQ />
