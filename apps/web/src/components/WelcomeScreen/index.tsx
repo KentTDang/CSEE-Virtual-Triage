@@ -8,9 +8,12 @@ import {
 } from "lucide-react";
 
 const suggestions = [
-  { icon: BookOpen, text: "What are the library hours?" },
+  {
+    icon: BookOpen,
+    text: "Who is the Department Chair of the CSEE department?",
+  },
   { icon: Calendar, text: "When is spring registration?" },
-  { icon: MapPin, text: "Where is the Commons building?" },
+  { icon: MapPin, text: "How do I find research opportunities?" },
   { icon: GraduationCap, text: "Tell me about CS programs" },
 ];
 
