@@ -6,7 +6,6 @@ import os
 from dotenv import load_dotenv
 
 from typing import List, Dict
-from typing_extensions import Annotated, TypedDict
 
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
@@ -18,7 +17,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 CHROMA_API_KEY = os.getenv("CHROMA_API_KEY")
 CHROMA_TENANT = os.getenv("CHROMA_TENANT")
 CHROMA_DATABASE = os.getenv("CHROMA_DATABASE", "Development")
-COLLECTION_NAME = os.getenv("CHROMA_COLLECTION", "csee-department")
+COLLECTION_NAME = os.getenv("CHROMA_COLLECTION", "csee-department-1")
 
 class Source(BaseModel):
     title: str
